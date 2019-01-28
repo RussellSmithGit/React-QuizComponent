@@ -4,7 +4,18 @@ import QuizQuestionButton from './QuizQuestionButton'
 class QuizQuestion extends Component {
     constructor(props) {
         super(props)
+        this.state = { incorectAnswer: false }
     }
+    handleClick(buttonText) {
+        if( buttonText === this.props.quiz_question.answer) {
+            this.setState({incorrectAnswer: false })
+            this.props.showNextQuestionHandler()
+        }
+        else {
+            this.setState({incorrectAnswer: true })
+        }
+    }
+
     render() {
         return (
             <main>
@@ -13,18 +24,15 @@ class QuizQuestion extends Component {
                 </section>
                 <section className="buttons">
                     <ul>
-                        {this.props.quiz_question.answer_options.map((answeroption, index) =>
-                            <QuizQuestionButton button_text={answeroption} key={index} clickHandler={this.handleClick.bind(this)} />
-                        )}
+                        {this.props.quiz_question.answer_options.map((answeroption, index) => {
+                            return <QuizQuestionButton button_text={answeroption} key={index} 
+                            clickHandler={this.handleClick.bind(this)} />
+                        })}
                     </ul>
                 </section>
+                {(this.state.incorrectAnswer) ? <p className="error">Sorry, that's not right</p> :"" }
             </main>
         )
-    }
-    handleClick(buttonText) {
-        if (buttonText === this.props.quiz_question.answer) {
-            this.props.showNextQuestionHandler()
-        }
     }
 }
 
