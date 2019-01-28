@@ -8,7 +8,7 @@ class QuizEnd extends Component {
     render() {
         return(
             <div>
-                <p>THanks for playing!</p>
+                <p>Thanks for playing!</p>
                 <a href=''>Reset Quiz</a>
             </div>
         )
